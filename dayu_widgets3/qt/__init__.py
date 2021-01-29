@@ -17,6 +17,10 @@ except ImportError:
     from PySide.QtSvg import QSvgRenderer
 
 
+def str_to_QByteArray(content):
+    return QByteArray(bytearray(content.encode('utf-8')))
+
+
 class MCacheDict(object):
     _render = QSvgRenderer()
 
@@ -34,7 +38,7 @@ class MCacheDict(object):
             data_content = f.read()
             if replace_color is not None:
                 data_content = data_content.replace('#555555', replace_color)
-            self._render.load(QByteArray(data_content))
+            self._render.load(str_to_QByteArray(data_content))
             pix = QPixmap(128, 128)
             pix.fill(Qt.transparent)
             painter = QPainter(pix)
